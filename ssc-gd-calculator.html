@@ -1,0 +1,89 @@
+<div style="font-family: Arial; max-width: 500px; margin: 20px auto; padding: 15px; border:1px solid #ccc; border-radius:8px;">
+
+<h2>SSC GD Eligibility Calculator 2026</h2>
+
+<label>Are you an Indian citizen?</label>
+<select id="nationality" style="width:100%; padding:8px; margin:8px 0;">
+  <option value="">Select</option>
+  <option value="yes">Yes</option>
+  <option value="no">No</option>
+</select>
+
+<label>Enter Your Age (as on 1 August 2026):</label>
+<input type="number" id="age" placeholder="Enter age"
+       style="width:100%; padding:8px; margin:8px 0;">
+
+<label>Have you passed 10th (Matric) on or before 31 Dec 2025?</label>
+<select id="education" style="width:100%; padding:8px; margin:8px 0;">
+  <option value="">Select</option>
+  <option value="yes">Yes</option>
+  <option value="no">No</option>
+</select>
+
+<label>Select Gender:</label>
+<select id="gender" style="width:100%; padding:8px; margin:8px 0;">
+  <option value="">Select</option>
+  <option value="male">Male</option>
+  <option value="female">Female</option>
+</select>
+
+<label>Enter Your Height (in cm):</label>
+<input type="number" id="height" placeholder="Height in cm"
+       style="width:100%; padding:8px; margin:8px 0;">
+
+<label>Chest (for male only):</label>
+<input type="number" id="chest" placeholder="Chest in cm"
+       style="width:100%; padding:8px; margin:8px 0;">
+
+<button onclick="checkEligibility()" 
+        style="width:100%; padding:10px; background:#007bff; color:white; border:none; border-radius:6px; margin-top:10px;">
+  Check Eligibility
+</button>
+
+<div id="popup" style="display:none; margin-top:15px; padding:12px; border:1px solid #007bff; border-radius:6px; background:#e8f1ff;">
+  <p id="popupMessage"></p>
+
+  <div style="text-align:center;">
+    <a href="https://testbk.co/1h85x" 
+       style="display:inline-block; background:#007bff; color:white; padding:10px 18px;
+              border-radius:6px; font-weight:bold; text-decoration:none;">
+       Start ₹1 Trial
+    </a>
+  </div>
+</div>
+
+</div>
+
+<script>
+function checkEligibility() {
+  const nationality = document.getElementById("nationality").value;
+  const age = document.getElementById("age").value;
+  const education = document.getElementById("education").value;
+  const gender = document.getElementById("gender").value;
+  const height = document.getElementById("height").value;
+  const chest = document.getElementById("chest").value;
+
+  if (!nationality || !age || !education || !gender || !height || (gender === "male" && !chest)) {
+    return showPop("⚠️ Please fill all fields before checking eligibility.");
+  }
+
+  let ageVal = parseInt(age);
+  let heightVal = parseInt(height);
+  let chestVal = parseInt(chest || 0);
+
+  if (nationality !== "yes") return showPop("❌ Not Eligible – Only Indian citizens can apply.");
+  if (ageVal < 18 || ageVal > 23) return showPop("❌ Not Eligible – Age must be between 18 and 23 years.");
+  if (education !== "yes") return showPop("❌ Not Eligible – Must have passed 10th (Matric).");
+  if (gender === "male" && heightVal < 170) return showPop("❌ Not Eligible – Minimum male height required is 170 cm.");
+  if (gender === "female" && heightVal < 157) return showPop("❌ Not Eligible – Minimum female height required is 157 cm.");
+  if (gender === "male" && chestVal < 80) return showPop("❌ Not Eligible – Minimum chest requirement is 80 cm.");
+
+  showPop("✅ Eligible – You meet the SSC GD 2026 eligibility criteria!");
+}
+
+function showPop(msg) {
+  document.getElementById("popupMessage").innerHTML =
+    msg + "<br><br>🔥 Start preparing now with 1000+ SSC Mock Tests, PYQs & Expert Classes!";
+  document.getElementById("popup").style.display = "block";
+}
+</script>
